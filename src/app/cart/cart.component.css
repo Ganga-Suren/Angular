@@ -1,0 +1,79 @@
+.cart-container {
+    max-width: 800px;
+    margin: 10rem auto;
+    padding: 20px;
+    max-height: calc(100vh - 200px);
+}
+
+/* cart.component.css */
+/* cart.component.css */
+.cart-item {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+ .item-details {
+    margin-left: 0px;
+    padding-left: 0px;
+ }
+
+ .remove-btn-div {
+    margin-right: 0px;
+    padding-right: 0px;
+ }
+  
+  .remove-btn {
+    background-color: black; /* Red color, you can change it */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .remove-btn:hover {
+    background-color: #cc4125; /* Darker red on hover, you can change it */
+  }
+  
+
+
+.scrollable {
+    overflow-y: auto;
+}
+
+div {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h3,
+p {
+    margin: 0;
+}
+
+.clear-btn {
+    margin: 10px;
+}

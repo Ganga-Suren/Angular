@@ -1,0 +1,48 @@
+<!-- customer-management.component.html -->
+<div>
+    <h2>Customer Management</h2>
+    <button (click)="isAdding = true">Add Customer</button>
+  
+    <!-- <div *ngIf="isAdding || isEditing">
+      <form *ngIf="isAdding; else editForm" (ngSubmit)="addCustomer()">
+        <label>First Name: <input [(ngModel)]="newCustomer.firstName" name="firstName" required></label>
+        <label>Last Name: <input [(ngModel)]="newCustomer.lastName" name="lastName" required></label>
+  
+        <button type="submit">Save</button>
+        <button type="button" (click)="resetForm()">Cancel</button>
+      </form>
+  
+      <ng-template #editForm>
+        <label>First Name: <input [(ngModel)]="selectedCustomer.firstName" name="firstName" required></label>
+        <label>Last Name: <input [(ngModel)]="selectedCustomer.lastName" name="lastName" required></label>
+  
+        <button (click)="updateCustomer()">Update</button>
+        <button (click)="resetForm()">Cancel</button>
+      </ng-template>
+    </div>
+   -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <!-- Add more columns as needed -->
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers">
+          <td>{{ customer.id }}</td>
+          <td>{{ customer.firstName }}</td>
+          <td>{{ customer.lastName }}</td>
+          <!-- Display more columns as needed -->
+          <td>
+            <!-- <button (click)="editCustomer(customer.id)">Edit</button>
+            <button (click)="removeCustomer(customer.id)">Delete</button> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

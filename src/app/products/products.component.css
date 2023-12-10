@@ -1,0 +1,38 @@
+.products {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 12%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    overflow: auto;
+  }
+  
+  .product {
+    width: 300px;
+    height: auto;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .product img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .product h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .product p {
+    color: #555;
+    margin-bottom: 10px;
+    /* Adjust margin as needed */
+    font-size: 1rem;
+    /* Adjust font size as needed */
+  }

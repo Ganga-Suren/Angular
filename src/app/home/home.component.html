@@ -1,0 +1,46 @@
+<div class="home">
+    <div class="header">
+        <h1>My Shopping Site</h1>
+    </div>
+
+    <mat-toolbar color="primary">
+        <div class="toolbar-container">
+            <button mat-button routerLink="/home" class="toolbar-button">Home</button>
+        </div>
+
+        <!-- Notifications Menu -->
+        <mat-menu #notificationsMenu="matMenu">
+            <button mat-menu-item
+                (click)="showMessage('jakbfohioahaisdfhapidwa9uwdjfopdiawefhafhasjfhaoiuhabncsjakfb cajkb uyrbv fe fewruy e')">Message(1)</button>
+            <button mat-menu-item (click)="showMessage('Notification 2')">Message(2)</button>
+            <!-- Add more items as needed -->
+        </mat-menu>
+
+        <div>
+            <button mat-icon-button routerLink="/profile">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+            <button mat-icon-button class="notification-icon" [matMenuTriggerFor]="notificationsMenu">
+                <mat-icon>notifications</mat-icon>
+            </button>
+            <button mat-icon-button routerLink="/home/wishlist">
+                <mat-icon class="wishlist-icon">favorite</mat-icon>
+            </button>
+            <button mat-icon-button routerLink="/home/cart">
+                <mat-icon>shopping_cart</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div class="carousel-container" *ngIf="service.getShowCategory()">
+        <div class="categories-list" *ngIf="currentCategory">
+            <h2>{{ currentCategory.name }}</h2>
+        </div>
+        <button class="prev-btn" (click)="changeCategory(-1)">❮</button>
+        <button class="next-btn" (click)="changeCategory(1)">❯</button>
+    </div>
+
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
