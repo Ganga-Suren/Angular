@@ -1,0 +1,68 @@
+/* customer-profile.component.css */
+
+.profile-container {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 10rem auto;
+    padding: 20px;
+    max-height: calc(100vh - 200px);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-right: 5rem;
+  }
+
+  .address{
+    margin-right: 4rem;
+  }
+  
+  input {
+    display: block;
+    padding: 8px;
+    margin: 0.2rem;
+    align-self: left;
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    width: 20%;
+    margin-left: 13rem;
+  }
+  
+  button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+
+  .errorMsg {
+    color: red;
+  }
+
+  .left-grp {
+    display: block;
+    width: 50%;
+    left: 0;
+  }
+
+  .right-grp {
+    display: block;
+    width: 50%;
+    margin-left: 25rem;
+    margin-top: -18.5rem;
+  }

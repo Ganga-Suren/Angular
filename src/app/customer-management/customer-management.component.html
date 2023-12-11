@@ -1,48 +1,67 @@
-<!-- customer-management.component.html -->
-<div>
-    <h2>Customer Management</h2>
-    <button (click)="isAdding = true">Add Customer</button>
-  
-    <!-- <div *ngIf="isAdding || isEditing">
-      <form *ngIf="isAdding; else editForm" (ngSubmit)="addCustomer()">
-        <label>First Name: <input [(ngModel)]="newCustomer.firstName" name="firstName" required></label>
-        <label>Last Name: <input [(ngModel)]="newCustomer.lastName" name="lastName" required></label>
-  
-        <button type="submit">Save</button>
-        <button type="button" (click)="resetForm()">Cancel</button>
-      </form>
-  
-      <ng-template #editForm>
-        <label>First Name: <input [(ngModel)]="selectedCustomer.firstName" name="firstName" required></label>
-        <label>Last Name: <input [(ngModel)]="selectedCustomer.lastName" name="lastName" required></label>
-  
-        <button (click)="updateCustomer()">Update</button>
-        <button (click)="resetForm()">Cancel</button>
-      </ng-template>
-    </div>
-   -->
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <!-- Add more columns as needed -->
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let customer of customers">
-          <td>{{ customer.id }}</td>
-          <td>{{ customer.firstName }}</td>
-          <td>{{ customer.lastName }}</td>
-          <!-- Display more columns as needed -->
-          <td>
-            <!-- <button (click)="editCustomer(customer.id)">Edit</button>
-            <button (click)="removeCustomer(customer.id)">Delete</button> -->
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<div class="customer-container">
+  <h2>Customers Management</h2>
+  <div class="add-btn">
+    <p>Add New Customer</p>
+    <button mat-icon-button color="primary" (click)="onAdd()">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
   </div>
-  
+
+  <table mat-table [dataSource]="customers" class="mat-elevation-z8">
+
+    <!-- Define columns for the table -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>FirstName</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.firstName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef>LastName</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.lastName }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef>Address</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.address }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef>City</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.city }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="countryRegion">
+      <th mat-header-cell *matHeaderCellDef>Region</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.countryRegion }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="mobilePhone">
+      <th mat-header-cell *matHeaderCellDef>Phone No.</th>
+      <td mat-cell *matCellDef="let customer" style="width: 150px;">{{ customer.mobilePhone }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let customer">
+        <div class="btns">
+          <button mat-icon-button color="primary" (click)="onEdit(customer)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onDelete(customer)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+</div>

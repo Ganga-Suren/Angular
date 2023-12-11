@@ -1,0 +1,64 @@
+/* delete-confirmation-dialog.component.css */
+
+:host {
+    display: block;
+  }
+  
+  h2 {
+    margin: 0;
+    color: #d32f2f; /* Red color for the title */
+  }
+  
+  .mat-dialog-content {
+    padding: 20px;
+  }
+  
+  p {
+    margin-bottom: 1rem;
+  }
+  
+  .mat-dialog-actions {
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  button {
+    margin-left: 8px;
+  }
+  
+  /* Styling for the delete button */
+  button[color="warn"] {
+    background-color: #d32f2f;
+    color: #fff;
+  }
+  
+  button[color="warn"]:hover {
+    background-color: #b71c1c;
+  }
+  
+  button[color="primary"] {
+    background-color: #2552a5;
+    color: #fff;
+  }
+  
+  button[color="primary"]:hover {
+    background-color: #2341a37c;
+  }
+  /* Add transition effect for a smoother interaction */
+  .mat-dialog-container {
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 1rem;
+    margin-top: 2.5rem;
+    padding: 10px;
+  }
+  
+  .mat-dialog-container.ng-enter,
+  .mat-dialog-container.ng-leave-to {
+    transform: scale(1);
+  }
+  

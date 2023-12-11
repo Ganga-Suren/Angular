@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { CustomerEditDialogComponent } from '../customer-edit-dialog/customer-edit-dialog.component';
+import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @Component({
   selector: 'app-customer-management',
@@ -11,10 +14,10 @@ export class CustomerManagementComponent implements OnInit {
   customers: any[] = [];
   newCustomer: any = {};
   selectedCustomer: any = {};
-  isAdding: boolean = false;
   isEditing: boolean = false;
+  displayedColumns: string[] = ['firstName','lastName', 'email', 'address', 'city', 'countryRegion', 'mobilePhone', 'actions'];
 
-  constructor(private apiService: ApiService) { }
+  constructor(private router: Router, private apiService: ApiService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadCustomers();
@@ -28,57 +31,44 @@ export class CustomerManagementComponent implements OnInit {
     });
   }
 
-  // addCustomer(): void {
-  //   this.apiService.addCustomer(this.newCustomer).subscribe(
-  //     () => {
-  //       this.loadCustomers();
-  //       this.resetForm();
-  //     },
-  //     (error) => {
-  //       console.error('Error adding customer:', error);
-  //     }
-  //   );
-  // }
+  onAdd(): void {
+    this.isEditing = false;
+    this.openEditDialog("", this.isEditing)
+  }
+  
+  onEdit(customer: any): void {
+    this.isEditing = true;
+    this.openEditDialog(customer, this.isEditing);
+  }
 
-  // removeCustomer(customerId: number): void {
-  //   this.apiService.removeCustomer(customerId).subscribe(
-  //     () => {
-  //       this.loadCustomers();
-  //     },
-  //     (error) => {
-  //       console.error('Error removing customer:', error);
-  //     }
-  //   );
-  // }
+  onDelete(customer: any) {
+    this.openDeleteConfirmationDialog(customer);
+  }
 
-  // editCustomer(customerId: number): void {
-  //   this.apiService.getCustomerById(customerId).subscribe(
-  //     (customer) => {
-  //       this.selectedCustomer = { ...customer };
-  //       this.isEditing = true;
-  //     },
-  //     (error) => {
-  //       console.error('Error loading customer details for editing:', error);
-  //     }
-  //   );
-  // }
+  openEditDialog(customer: any, isEditMode: boolean): void {
+    const dialogRef = this.dialog.open(CustomerEditDialogComponent, {
+      width: '826px',
+      data: { customer, isEditMode }
+    });
+  
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        console.log(result);
+      }
+    });
+  }
 
-  // updateCustomer(): void {
-  //   this.apiService.updateCustomer(this.selectedCustomer).subscribe(
-  //     () => {
-  //       this.loadCustomers();
-  //       this.resetForm();
-  //     },
-  //     (error) => {
-  //       console.error('Error updating customer:', error);
-  //     }
-  //   );
-  // }
-
-  // resetForm(): void {
-  //   this.newCustomer = {};
-  //   this.selectedCustomer = {};
-  //   this.isAdding = false;
-  //   this.isEditing = false;
-  // }
+  openDeleteConfirmationDialog(customer: any): void {
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      width: '400px',
+      height: '200px',
+      data: { customer }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.apiService.deleteCustomer(customer.customerId).subscribe();
+      }
+    });
+  }
 }

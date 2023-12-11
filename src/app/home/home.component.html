@@ -1,33 +1,36 @@
 <div class="home">
     <div class="header">
-        <h1>My Shopping Site</h1>
+        <h1>Rowan Shop</h1>
     </div>
 
     <mat-toolbar color="primary">
         <div class="toolbar-container">
-            <button mat-button routerLink="/home" class="toolbar-button">Home</button>
+            <button mat-button routerLink="/home" class="toolbar-button" (click)="onHome()">Home</button>
         </div>
 
-        <!-- Notifications Menu -->
+        <!-- //Notifications Menu
         <mat-menu #notificationsMenu="matMenu">
             <button mat-menu-item
                 (click)="showMessage('jakbfohioahaisdfhapidwa9uwdjfopdiawefhafhasjfhaoiuhabncsjakfb cajkb uyrbv fe fewruy e')">Message(1)</button>
             <button mat-menu-item (click)="showMessage('Notification 2')">Message(2)</button>
-            <!-- Add more items as needed -->
-        </mat-menu>
+            Add more items as needed
+        </mat-menu> -->
 
         <div>
-            <button mat-icon-button routerLink="/profile">
+            <button mat-icon-button routerLink="/home/profile" (click)="onProfile()">
                 <mat-icon>account_circle</mat-icon>
             </button>
-            <button mat-icon-button class="notification-icon" [matMenuTriggerFor]="notificationsMenu">
+            <!-- <button mat-icon-button class="notification-icon" [matMenuTriggerFor]="notificationsMenu">
                 <mat-icon>notifications</mat-icon>
-            </button>
+            </button> -->
             <button mat-icon-button routerLink="/home/wishlist">
                 <mat-icon class="wishlist-icon">favorite</mat-icon>
             </button>
             <button mat-icon-button routerLink="/home/cart">
                 <mat-icon>shopping_cart</mat-icon>
+            </button>
+            <button mat-icon-button routerLink="/login" (click)="signOut()">
+                <mat-icon>exit_to_app</mat-icon>
             </button>
         </div>
     </mat-toolbar>

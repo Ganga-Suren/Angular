@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '.././api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,46 +9,112 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
-  constructor(private route: ActivatedRoute, private router: Router, private service: ApiService, private snackBar: MatSnackBar) {}
+  categoryId: any;
+  products: any;
+  customer: any;
 
-  products: any[] = [
-    {id:1, src: "/assets/motorola.jpg", alt: "motorola phone", heading: "MOTOROLA", price: 10, description: "The Phone that owns the world" },
-    {id:2, src: "assets/apple.jpg", alt: "apple phone", heading: "APPLE", price: 20, description: "The Phone that owns the PHONE world" },
-    {id:3, src: "assets/nothing.jpg", alt: "Nothing phone", heading: "Nothing Phone 1", price: 300, description: "The Phone that's changing the PHONE world" },
-    {id:4, src: "/assets/motorola.jpg", alt: "motorola phone", heading: "MOTOROLA", price: 10, description: "The Phone that owns the world" },
-    {id:5, src: "assets/apple.jpg", alt: "apple phone", heading: "APPLE", price: 20, description: "The Phone that owns the PHONE world" },
-    {id:6, src: "assets/nothing.jpg", alt: "Nothing phone", heading: "Nothing Phone 1", price: 30, description: "The Phone that's changing the PHONE world" },
-    {id:7, src: "/assets/motorola.jpg", alt: "motorola phone", heading: "MOTOROLA", price: 10, description: "The Phone that owns the world" },
-    {id:8, src: "assets/apple.jpg", alt: "apple phone", heading: "APPLE", price: 20, description: "The Phone that owns the PHONE world" },
-    {id:9, src: "assets/nothing.jpg", alt: "Nothing phone", heading: "Nothing Phone 1", price: 30, description: "The Phone that's changing the PHONE world" },
-    {id:10, src: "/assets/motorola.jpg", alt: "motorola phone", heading: "MOTOROLA", price: 10, description: "The Phone that owns the world" },
-    {id:11, src: "assets/apple.jpg", alt: "apple phone", heading: "APPLE", price: 20, description: "The Phone that owns the PHONE world" },
-    {id:12, src: "assets/nothing.jpg", alt: "Nothing phone", heading: "Nothing Phone 1", price: 30, description: "The Phone that's changing the PHONE world" },
-    {id:13, src: "assets/apple.jpg", alt: "apple phone", heading: "APPLE", price: 20, description: "The Phone that owns the PHONE world" },
-    {id:14, src: "assets/nothing.jpg", alt: "Nothing phone", heading: "Nothing Phone 1", price: 30, description: "The Phone that's changing the PHONE world" },
-    {id:15, src: "/assets/motorola.jpg", alt: "motorola phone", heading: "MOTOROLA", price: 10, description: "The Phone that owns the world" },
-    {id:16, src: "assets/apple.jpg", alt: "apple phone", heading: "APPLE", price: 20, description: "The Phone that owns the PHONE world" },
-    {id:17, src: "assets/nothing.jpg", alt: "Nothing phone", heading: "Nothing Phone 1", price: 30, description: "The Phone that's changing the PHONE world" },
-    {id:18, src: "/assets/motorola.jpg", alt: "motorola phone", heading: "MOTOROLA", price: 10, description: "The Phone that owns the world" },
-    {id:19, src: "assets/apple.jpg", alt: "apple phone", heading: "APPLE", price: 20, description: "The Phone that owns the PHONE world" },
-    {id:20, src: "assets/nothing.jpg", alt: "Nothing phone", heading: "Nothing Phone 1", price: 30, description: "The Phone that's changing the PHONE world" }
-  ]
+  constructor(private route: ActivatedRoute, private router: Router, private service: ApiService, private snackBar: MatSnackBar) {}
   
-  ngOnInit() {
-    this.service.getCategoryId();
+  ngOnInit(): void {
+    this.products = [];
+    this.categoryId = 0;
+    this.service.currentCategoryId.subscribe(categoryId => {
+      this.categoryId = categoryId;
+      this.changeProductsByCategory();
+    });
+    this.customer = this.service.getCurrentCustomer();
   }
+
+  
+  loadProducts(url?: any): void {
+    url.subscribe({
+      next: (data:any) => (this.products = data),
+      error: (error:any) => (console.error('Error loading customers:', error)),
+      complete: () => console.log('Complete')
+    });
+  }
+
+  changeProductsByCategory(): void {
+    if(this.categoryId == 1) { this.loadProducts(this.service.getSakilaProducts()) }
+    else if(this.categoryId == 2) { this.loadProducts(this.service.getNWProducts()) }
+    else if(this.categoryId == 3) { this.loadProducts(this.service.getAWProducts()) }
+    else { this.loadProducts(this.service.getProducts()) }
+   }
   
   viewProductDetails(productId: number) {
     this.router.navigate(['/product-details', productId]);
   }
 
   addToCart(product: any) {
-    this.service.addToCart(product);
+    let data;
+    if(this.categoryId == 1) {
+      data = { 
+        "productName": product.title,
+        "quantity": 1,
+        "price": Math.round(product.replacementCost)
+      }
+    } else if(this.categoryId == 2) {
+      data = { 
+        "productName": product.productName,
+        "quantity": 1,
+        "price": Math.round(product.standardCost)
+      }
+    } else if(this.categoryId == 3) {
+      data = { 
+        "productName": product.name,
+        "quantity": 1,
+        "price": Math.round(product.standardCost)
+      }
+    } else {
+      data = { 
+        "productName": product.productName,
+        "quantity": 1,
+        "price": Math.round(product.standardCost)
+      }
+    }
+
+    this.service.addToCart(data, this.customer.customerId).subscribe(response => {
+      console.log('API response:', response);
+    }, error => {
+      console.error('Error submitting form:', error);
+    });
     this.showNotification('Product added to CART successfully');
   }
 
+  
   addToWishlist(product: any) {
-    this.service.addToWishlist(product);
+    let data;
+    if(this.categoryId == 1) {
+      data = { 
+        "productName": product.title,
+        "quantity": 1,
+        "price": Math.round(product.replacementCost)
+      }
+    } else if(this.categoryId == 2) {
+      data = { 
+        "productName": product.productName,
+        "quantity": 1,
+        "price": Math.round(product.standardCost)
+      }
+    } else if(this.categoryId == 3) {
+      data = { 
+        "productName": product.name,
+        "quantity": 1,
+        "price": Math.round(product.standardCost)
+      }
+    } else {
+      data = { 
+        "productName": product.productName,
+        "quantity": 1,
+        "price": Math.round(product.standardCost)
+      }
+    }
+
+    this.service.addToWishlist(data, this.customer.customerId).subscribe(response => {
+      console.log('API response:', response);
+    }, error => {
+      console.error('Error submitting form:', error);
+    });
     this.showNotification('Product added to WISHLIST successfully');
   }
 

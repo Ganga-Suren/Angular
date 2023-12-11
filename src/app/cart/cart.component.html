@@ -1,10 +1,12 @@
 <!-- cart.component.html -->
-<div class="cart-container" [ngClass]="{ 'scrollable': shouldScroll }">
+<div class="cart-container">
     <h2>Your Cart</h2>
     <ul>
         <li class="cart-item" *ngFor="let item of cartItems">
             <div class="item-details">
-                {{ item.description }} - price: $ {{ item.price }}
+                Name: {{ item.productName }}<br>
+                Quantity: {{ item.quantity }}<br>
+                Price: $ {{ item.price }}
             </div>
             <div class="remove-btn-div">
                 <button (click)="removeFromCart(item.id)" class="remove-btn"><mat-icon>delete</mat-icon></button>
@@ -13,16 +15,16 @@
     </ul>
 
 
-    <div class="cart-actions" *ngIf="cartItems.length != 0">
-        <p>Total Price: $ {{ getTotalPrice() }}</p>
+    <div class="cart-actions" *ngIf="cartItems">
+        <!-- <p>Total Price: $ {{ getTotalPrice() }}</p> -->
 
         <button class="confirm-btn" (click)="confirmPayment()">Confirm Payment</button>
         <button class="clear-btn" (click)="clearCart()">Clear Cart</button>
     </div>
 
-    <div class="cart-actions" *ngIf="cartItems.length == 0">
-        <h3>Aww!! YOUR CART IS EMPTY</h3>
-        <p>You can add products <a href="/home">HERE</a></p>
+    <div class="cart-actions" *ngIf="!cartItems">
+        <h3>Ouch!! YOUR CART IS EMPTY</h3>
+        <p>You can add products <a href="/home/products">HERE</a></p>
     </div>
 
 </div>

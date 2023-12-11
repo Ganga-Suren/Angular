@@ -7,12 +7,16 @@ import { ApiService } from '../api.service';
   styleUrl: './payment-page.component.css'
 })
 export class PaymentPageComponent {
+  customer: any;
   
   constructor(private service: ApiService) {}
   paymentSuccessfull: boolean = false;
 
+  ngOnInit(): void {
+    this.customer = this.service.getCurrentCustomer();
+  }
   onSubmit(): void {
     this.paymentSuccessfull = true;
-    this.service.emptyCart()
+    this.service.emptyCart(this.customer.customerId).subscribe();
   }
 }

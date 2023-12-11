@@ -1,10 +1,57 @@
-<section class="products">
+<section class="products" *ngIf="categoryId == 0">
     <article class="product" *ngFor="let product of products">
         <img [src]="product.src" [alt]="product.alt">
-        <h2>{{ product.heading }}</h2>
+        <h2>{{ product.productName }}</h2>
         <p>{{ product.description }}</p>
-        <p>$ {{ product.price }}</p>
-        <button (click)="addToCart(product)">Add to Cart</button>
-        <button (click)="addToWishlist(product)">Add to Wishlist</button>
+        <b>Current Cost: $ {{ product.standardCost }}</b>
+        <p><i>Initial Cost:</i><s> $ {{ product.listPrice }}</s></p>
+        <div class="btns">
+            <button (click)="addToCart(product)" class="cart-btn">Add to Cart</button>
+            <button (click)="addToWishlist(product)" class="wishlist-btn">Add to Wishlist</button>
+        </div>
+    </article>
+</section>
+
+<section class="products" *ngIf="categoryId == 1">
+    <article class="product" *ngFor="let product of products">
+        <img [src]="product.src" [alt]="product.alt">
+        <h2>{{ product.title }}</h2>
+        <p>Released Year: {{ product.releaseYear }}</p>
+        <p>{{ product.description }}</p>
+        <b>Original Cost: $ {{ product.replacementCost }}</b>
+        <p><b>Rental Rate: $ {{ product.rentalRate }}</b></p>
+        <div class="btns">
+            <button (click)="addToCart(product)" class="cart-btn">Add to Cart</button>
+            <button (click)="addToWishlist(product)" class="wishlist-btn">Add to Wishlist</button>
+        </div>
+    </article>
+</section>
+
+<section class="products" *ngIf="categoryId == 2">
+    <article class="product" *ngFor="let product of products">
+        <img [src]="product.src" [alt]="product.alt">
+        <h2>{{ product.productName }}</h2>
+        <p>{{ product.quantityPerUnit }}</p>
+        <b><i>Current Cost:</i> $ {{ product.standardCost }}</b>
+        <p><i>Initial Cost:</i><s> $ {{ product.listPrice }}</s></p>
+        <div class="btns">
+            <button (click)="addToCart(product)" class="cart-btn">Add to Cart</button>
+            <button (click)="addToWishlist(product)" class="wishlist-btn">Add to Wishlist</button>
+        </div>
+    </article>
+</section>
+
+
+<section class="products" *ngIf="categoryId == 3">
+    <article class="product" *ngFor="let item of products">
+        <img *ngIf="item.productProductPhoto?.thumbnailPhoto" src="{{ item.productPhoto.thumbNailPhoto.thumbNailPhoto }}" [alt]="item.productPhoto.thumbnailPhotoFileName">
+        <h2>{{ item.product?.name }}</h2>
+        <p>{{ item.product?.color }}</p>
+        <b>Current Cost: $ {{ item.product?.standardCost }}</b>
+        <p><i>Initial Cost:</i><s> $ {{ item.product?.listPrice }}</s></p>
+        <div class="btns">
+            <button (click)="addToCart(item.product)" class="cart-btn">Add to Cart</button>
+            <button (click)="addToWishlist(item.product)" class="wishlist-btn">Add to Wishlist</button>
+        </div>
     </article>
 </section>

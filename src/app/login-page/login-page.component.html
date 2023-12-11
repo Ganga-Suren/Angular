@@ -1,17 +1,83 @@
-<div class="login-container">
-    
+<div class="login-container" *ngIf="!isSingUp">
     <div class="login-content">
-    <form class="login-form">
+        <form [formGroup]="form" class="login-form" (submit)="onLogin()">
             <h2>Login</h2>
             <label for="username">Username:</label>
-            <input _ngcontent-ng-c1302135791 type="text" id="username" name="username" required fdprocessedid="dq24hf"
-                autocomplete="username">
+            <input type="text" id="username" formControlName="username" required autocomplete="username">
+            <div class="errorMsg"
+                *ngIf="f['username'].touched && (f['username'].hasError('required') || f['username'].hasError('minlength'))">
+                *Username is required.
+            </div>
 
             <label for="password">Password:</label>
-            <input _ngcontent-ng-c1302135791 type="password" id="password" name="password" required
-                fdprocessedid="dq24hf" autocomplete="current-password">
+            <input type="password" id="password" formControlName="password" required autocomplete="current-password">
+            <div class="errorMsg"
+                *ngIf="f['password'].touched && (f['password'].hasError('required') || f['password'].hasError('minlength'))">
+                *Password is required.
+            </div>
 
-            <button type="submit" (click)="onLogin()">Login</button>
-    </form>
+            <div class="btns">
+                <button type="submit" class="login-btn">Login</button>
+                <button type="button" class="signUp-btn" (click)="onSingUpClick()">Sign Up</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- signup.component.html -->
+<div class="signup-container" *ngIf="isSingUp">
+    <div class="signup-content">
+        <form class="signup-form" [formGroup]="signUpForm" (submit)="onSignup($event)">
+            <h2>Sign Up</h2>
+
+            <label for="firstName">FirstName:</label>
+            <input type="text" id="firstName" name="firstName" formControlName="firstName" autocomplete="new-password"
+                required>
+            <div class="errorMsg"
+                *ngIf="suf['firstName'].touched && (suf['firstName'].hasError('required') || suf['firstName'].hasError('minlength'))">
+                *Username is required and must be at least 4 characters long.
+            </div>
+
+            <label for="lastName">LastName:</label>
+            <input type="text" id="lastName" name="lastName" formControlName="lastName" autocomplete="new-password"
+                required>
+            <div class="errorMsg"
+                *ngIf="suf['lastName'].touched && (suf['lastName'].hasError('required') || suf['lastName'].hasError('minlength'))">
+                *Username is required and must be at least 4 characters long.
+            </div>
+
+            <label for="mobilePhone">Phone No:</label>
+            <input type="text" id="mobilePhone" formControlName="mobilePhone" />
+            <div class="errorMsg" *ngIf="suf['mobilePhone'].touched && (suf['mobilePhone'].hasError('required') || suf['mobilePhone'].hasError('minlength'))">
+                *mobilePhone is required.
+            </div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" formControlName="email" />
+            <div class="errorMsg" *ngIf="suf['email'].touched && suf['email'].hasError('required')">
+                **Email is required and must be a valid email address.
+            </div>
+
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" formControlName="password" autocomplete="new-password"
+                required>
+            <div class="errorMsg"
+                *ngIf="suf['password'].touched && (suf['password'].hasError('required') || suf['password'].hasError('minlength'))">
+                *Password is required and must be at least 6 characters long.
+            </div>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" formControlName="confirmPassword" autocomplete="new-password"
+                required>
+            <div class="errorMsg"
+                *ngIf="suf['confirmPassword'].touched && (suf['confirmPassword'].hasError('required') || suf['confirmPassword'].hasError('passwordMismatch'))">
+                *Passwords are not matched.
+            </div>
+
+
+            <button type="submit" [disabled]="!signUpForm.valid">Sign Up</button>
+        </form>
     </div>
 </div>

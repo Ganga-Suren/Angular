@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatTableModule} from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +23,9 @@ import { ProductsComponent } from './products/products.component';
 import { CartComponent } from './cart/cart.component';
 import { PaymentPageComponent } from './payment-page/payment-page.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { ProfileComponent } from './profile/profile.component';
+import { CustomerEditDialogComponent } from './customer-edit-dialog/customer-edit-dialog.component';
+import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,10 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     ProductsComponent,
     CartComponent,
     PaymentPageComponent,
-    WishlistComponent
+    WishlistComponent,
+    ProfileComponent,
+    CustomerEditDialogComponent,
+    DeleteConfirmationDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -46,7 +54,9 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     MatIconModule,
     MatMenuModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    ReactiveFormsModule
   ],
   providers: [
     { 

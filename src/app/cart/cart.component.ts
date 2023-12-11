@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '.././api.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,16 +8,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartComponent {
-  cartItems: any[] = [];
+export class CartComponent implements OnInit {
+  cartItems: any;
   shouldScroll: boolean = false;
+  customer: any;
 
   ngOnInit() {
+    this.customer = this.service.getCurrentCustomer();
     this.service.setShowCategory(false);
-    this.shouldScroll = this.cartItems.length > 5; // Change the condition as needed
+    this.loadCartitems();
   }
   constructor(private router: Router, private service: ApiService, private snackBar: MatSnackBar) {
-    this.cartItems = this.service.getCartItems();
+  }
+
+  loadCartitems(): void {
+    this.service.getCartItems(this.customer.customerId).subscribe({
+      next: (data) => (this.cartItems = data),
+      error: (error) => (console.error('Error loading cart items:', error)),
+      complete: () => console.log('Complete')
+    });
   }
 
   confirmPayment(): void {
@@ -25,13 +34,11 @@ export class CartComponent {
   }
 
   clearCart(): void {
-    this.cartItems = [];
-    this.service.emptyCart();
+    this.service.emptyCart(this.customer.customerId).subscribe();
   }
 
   removeFromCart(productId: number): void {
-    let index = this.cartItems.findIndex(item => item.id = productId)
-    this.cartItems.splice(index, 1)[0];
+    this.service.deleteCartitem(productId).subscribe();
     this.showNotification('Product removed from cart successfully');
   }
 
@@ -42,9 +49,9 @@ export class CartComponent {
   }
 
   getTotalPrice(): any {
-    let total= 0;
-    this.cartItems.forEach(item => total = total+ item.price);
-    return total;
+    // let total= 0;
+    // this.cartItems.forEach(item => total = total+ item.price);
+    // return total;
   }
 
 }

@@ -36,3 +36,33 @@
     font-size: 1rem;
     /* Adjust font size as needed */
   }
+
+  
+  .btns {
+    display: flex;
+  }
+  
+  button {
+    background-color: #ece8e3;
+  }
+  
+  .cart-btn{
+    width: 50%;
+    margin: 5px;
+    left: 0;
+  }
+
+  .wishlist-btn {
+    width:50%;
+    margin: 5px;
+    right: 0;
+  }
+  
+  .wishlist-btn:hover {
+    background-color: #cd10107a;
+  }
+  
+  button:hover {
+    background-color: #cad577;
+  }
+  

@@ -1,19 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'https://localhost:7090'; // Replace with your API base URL
-  private categoryId: any;
+  private apiUrl = 'https://localhost:7090/api'; // Replace with your API base URL
+  //private categoryId: any;
   wishlistItems: any[] = [];
-
+  currentCustomer: any;
   constructor(private http: HttpClient) {}
 
   private cartItems: any[] = [];
   private showCategory: boolean = true;
+  private categoryIdSource = new BehaviorSubject<string>('defaultCategoryId');
+  currentCategoryId = this.categoryIdSource.asObservable();
+
+  setCurrentCustomer(customer: any): void {
+    this.currentCustomer = customer;
+  }
+
+  getCurrentCustomer(): void {
+    return this.currentCustomer;
+  }
 
   getShowCategory(): boolean {
     return this.showCategory;
@@ -23,119 +33,100 @@ export class ApiService {
     this.showCategory = value;
   }
 
-  addToCart(product: any) {
-    this.cartItems.push(product);
+  changeCategoryId(categoryId: string) {
+    this.categoryIdSource.next(categoryId);
   }
 
-  emptyCart() {
-    this.cartItems = [];
+  //signup methods
+  signUp(data: any): Observable<any> {
+  const url = `${this.apiUrl}/Customers`;
+  return this.http.post<any>(url, data);
   }
 
-  getCartItems() {
-    return this.cartItems;
-  }
-
-  addToWishlist(product: any) {
-    this.wishlistItems.push(product);
-  }
-
-  getWishlistItems() {
-    return this.wishlistItems;
-  }
-
-  emptyWishlist() {
-    this.wishlistItems = [];
-  }
-
-  getItemsByCategory(categoryId: number): Observable<any> {
-    const url = `${this.apiUrl}/items?category=${categoryId}`;
-    return this.http.get(url);
-  }
-
-  setCategoryId(categoryId: number) {
-    this.categoryId = categoryId;
-  }
-
-  getCategoryId() {
-    return this.categoryId;
-  }
+  editProfile(data: any): Observable<any> {
+    const url = `${this.apiUrl}/Customers/${data.customerId}`;
+    return this.http.put<any>(url, data);
+    }
 
   // Customer-related methods
 
   getCustomers(): Observable<any[]> {
-    const url = `${this.apiUrl}/api/Customers`; // Replace with your actual endpoint for getting all customers
+    const url = `${this.apiUrl}/Customers`;
     return this.http.get<any[]>(url);
   }
 
-//   getCustomerById(customerId: number): Observable<any> {
-//     const url = `${this.apiUrl}/customers/${customerId}`; // Replace with your actual endpoint for getting a customer by ID
-//     return this.http.get<any>(url);
-//   }
+  deleteCustomer(customerId: number): Observable<any> {
+    const url = `${this.apiUrl}/Customers/${customerId}`;
+    return this.http.delete<any>(url);
+  }
 
-//   addCustomer(customer: any): Observable<any> {
-//     const url = `${this.apiUrl}/customers`; // Replace with your actual endpoint for adding a new customer
-//     return this.http.post<any>(url, customer);
-//   }
-
-//   updateCustomer(customer: any): Observable<any> {
-//     const url = `${this.apiUrl}/customers/${customer.id}`; // Replace with your actual endpoint for updating a customer
-//     return this.http.put<any>(url, customer);
-//   }
-
-//   removeCustomer(customerId: number): Observable<any> {
-//     const url = `${this.apiUrl}/customers/${customerId}`; // Replace with your actual endpoint for removing a customer
-//     return this.http.delete<any>(url);
-//   }
+  addCustomer(data: any): Observable<any> {
+    const url = `${this.apiUrl}/Customers`;
+    return this.http.post<any>(url, data);
+  }
   
-// // Product-related methods
+ // Product-related methods
 
   getProducts(): Observable<any[]> {
-    const url = `${this.apiUrl}/products`; // Replace with your actual endpoint for getting all products
+    const url = `${this.apiUrl}/Products`;
     return this.http.get<any[]>(url);
   }
 
-//   getProductById(productId: number): Observable<any> {
-//     const url = `${this.apiUrl}/products/${productId}`; // Replace with your actual endpoint for getting a product by ID
-//     return this.http.get<any>(url);
-//   }
+  getAWProducts(): Observable<any[]> {
+    const url = `${this.apiUrl}/AdvWorks`;
+    return this.http.get<any[]>(url);
+  }
 
-//   addProduct(product: any): Observable<any> {
-//     const url = `${this.apiUrl}/products`; // Replace with your actual endpoint for adding a new product
-//     return this.http.post<any>(url, product);
-//   }
+  getSakilaProducts(): Observable<any[]> {
+    const url = `${this.apiUrl}/Sakila/product`;
+    return this.http.get<any[]>(url);
+  }
 
-//   updateProduct(product: any): Observable<any> {
-//     const url = `${this.apiUrl}/products/${product.id}`; // Replace with your actual endpoint for updating a product
-//     return this.http.put<any>(url, product);
-//   }
+  getNWProducts(): Observable<any[]> {
+    const url = `${this.apiUrl}/NorthWind/products`;
+    return this.http.get<any[]>(url);
+  }
 
-//   removeProduct(productId: number): Observable<any> {
-//     const url = `${this.apiUrl}/products/${productId}`; // Replace with your actual endpoint for removing a product
-//     return this.http.delete<any>(url);
-//   }
+  //cart related methods
+  getCartItems(id: any): Observable<any> {
+    const url = `${this.apiUrl}/Carts/${id}`;
+    return this.http.get<any[]>(url);
+  }
 
-//   // Shopping cart-related methods
+  addToCart(data: any, id: any): Observable<any> {
+    const url = `${this.apiUrl}/Carts/${id}`;
+    return this.http.post<any>(url, data);
+  }
 
-//   getShoppingCart(): Observable<any[]> {
-//     const url = `${this.apiUrl}/shopping-cart`; // Replace with your actual endpoint for getting the shopping cart
-//     return this.http.get<any[]>(url);
-//   }
+  deleteCartitem(id: any): Observable<any> {
+    const url = `${this.apiUrl}/Carts/deleteCartItem${id}`;
+    return this.http.delete<any>(url);
+  }
 
-//   addToShoppingCart(product: any): Observable<any> {
-//     const url = `${this.apiUrl}/shopping-cart/add`; // Replace with your actual endpoint for adding to the shopping cart
-//     return this.http.post<any>(url, product);
-//   }
+  emptyCart(id: any): Observable<any> {
+    const url = `${this.apiUrl}/Carts/deleteAllCartItems${id}`;
+    return this.http.delete<any>(url);
+  }
 
-//   removeFromShoppingCart(cartItem: any): Observable<any> {
-//     const url = `${this.apiUrl}/shopping-cart/remove`; // Replace with your actual endpoint for removing from the shopping cart
-//     return this.http.post<any>(url, cartItem);
-//   }
+  //wishlist related methods
+  addToWishlist(data: any, id: any): Observable<any> {
+    const url = `${this.apiUrl}/Wishlists/${id}/${data.productName}`;
+    return this.http.post<any>(url, data);
+  }
 
-//   // Order-related methods
+  getWishListItems(id: any): Observable<any> {
+    const url = `${this.apiUrl}/Wishlists/${id}`;
+    return this.http.get<any[]>(url);
+  }
 
-//   placeOrder(orderItems: any[]): Observable<any> {
-//     const url = `${this.apiUrl}/orders`; // Replace with your actual endpoint for placing an order
-//     return this.http.post<any>(url, orderItems);
-//   }
-  
+  deleteWishlistItem(wishlistId: any): Observable<any> {
+    const url = `${this.apiUrl}/Wishlists/deleteWishItem${wishlistId}`;
+    return this.http.delete<any>(url);
+  }
+
+  emptyWishlist(customerId: any): Observable<any> {
+    const url = `${this.apiUrl}/Wishlists/deleteAllWishItems${customerId}`;
+    return this.http.delete<any>(url);
+  }
+
 }

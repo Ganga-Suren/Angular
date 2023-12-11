@@ -14,11 +14,10 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, private snackBar: MatSnackBar, public service: ApiService) { }
 
   categories: any[] = [
-    { id: 0, name:"All Products" }, 
+    { id: 0, name:"Rowan Products" }, 
     { id: 1, name: "Movies" },
-    { id: 2, name: "Books" }, 
-    { id: 3, name: "Clothing" },
-    { id: 4, name: "Furniture" },
+    { id: 2, name: "Food Items" }, 
+    { id: 3, name: "Bikes & Accessories" }
   ]
   currentCategory: any;
   currentCategoryIndex = 0;
@@ -27,6 +26,7 @@ export class HomeComponent implements OnInit {
     this.changeCategory(0);
     this.service.setShowCategory(true);
   }
+
 
   showMessage(message: string): void {
     this.snackBar.open(message, 'Close', {
@@ -44,16 +44,19 @@ export class HomeComponent implements OnInit {
     }
     this.currentCategory = this.categories[this.currentCategoryIndex];
     this.selectedCategoryId = this.currentCategory.id;
-
-    // this.service.getItemsByCategory(this.selectedCategoryId).subscribe((items) => {
-    //   this.categories = items;
-    //   console.log(items);
-    // });
-
-    this.service.setCategoryId(this.selectedCategoryId);
+    this.service.changeCategoryId(this.selectedCategoryId);
   }
 
-  onCategoryChange(category: any):void {
-    this.service.setCategoryId(category.id);
+  onHome(): void {
+    this.service.setShowCategory(true);
+  }
+
+  onProfile(): void {
+    this.service.setShowCategory(false);
+  }
+
+  signOut(): void {
+    this.router.navigate(["/login"]);
+    this.showMessage("Signed out successfully");
   }
 }

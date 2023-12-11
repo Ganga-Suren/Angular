@@ -1,0 +1,175 @@
+<!-- Editing a customer -->
+<div class="profile-container" *ngIf="data.isEditMode">
+    <h2>Edit Customner Details</h2>
+  
+    <form [formGroup]="profileForm" (ngSubmit)="saveChanges($event)">
+      <div class="left-grp">
+        <div class="form-group">
+          <label for="firstName">FirstName:</label>
+          <input type="text" id="firstName" formControlName="firstName" />
+          <div class="errorMsg" *ngIf="f['firstName'].touched && f['firstName'].hasError('required')">
+            *firstName is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="lastName">lastName:</label>
+          <input type="text" id="lastName" formControlName="lastName" />
+          <div class="errorMsg" *ngIf="f['lastName'].touched && f['lastName'].hasError('required')">
+            *lastName is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="mobilePhone">Phone No:</label>
+          <input type="text" id="mobilePhone" formControlName="mobilePhone" />
+          <div class="errorMsg" *ngIf="f['mobilePhone'].touched && f['mobilePhone'].hasError('required')">
+            *mobilePhone is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" formControlName="email" />
+          <div class="errorMsg" *ngIf="f['email'].touched && f['email'].hasError('required')">
+            *Email is required.
+          </div>
+          <div class="errorMsg" *ngIf="f['email'].touched && f['email'].hasError('required')">
+            *Email is Invalid.
+          </div>
+        </div>
+      </div>
+  
+      <div class="right-grp">
+        <div class="form-group">
+          <label for="address" class="address">Address:</label>
+          <input type="text" id="address" formControlName="address" />
+          <div class="errorMsg" *ngIf="f['address'].touched && f['address'].hasError('required')">
+            *Address is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="city">City:</label>
+          <input type="text" id="city" formControlName="city" />
+          <div class="errorMsg" *ngIf="f['city'].touched && f['city'].hasError('required')">
+            *city is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="stateProvince">State:</label>
+          <input type="text" id="stateProvince" formControlName="stateProvince" />
+          <div class="errorMsg" *ngIf="f['stateProvince'].touched && f['stateProvince'].hasError('required')">
+            *stateProvince is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="zipPostalCode">zipPostalCode:</label>
+          <input type="text" id="zipPostalCode" formControlName="zipPostalCode" />
+          <div class="errorMsg" *ngIf="f['zipPostalCode'].touched && f['zipPostalCode'].hasError('required')">
+            *zipPostalCode is required.
+          </div>
+  
+          <div class="form-group">
+            <label for="countryRegion">Country:</label>
+            <input type="text" id="countryRegion" formControlName="countryRegion" />
+            <div class="errorMsg" *ngIf="f['countryRegion'].touched && f['countryRegion'].hasError('required')">
+              *Country is required.
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="!profileForm.valid">Save Changes</button>
+    </form>
+  </div>
+
+  <!-- Adding a new customer -->
+  <div class="profile-container" *ngIf="!data.isEditMode">
+    <h2>Add New Customner Details</h2>
+  
+    <form [formGroup]="newProfileForm" (ngSubmit)="OnAdd($event)">
+      <div class="left-grp">
+        <div class="form-group">
+          <label for="firstName">FirstName:</label>
+          <input type="text" id="firstName" formControlName="firstName" />
+          <div class="errorMsg" *ngIf="newF['firstName'].touched && newF['firstName'].hasError('required')">
+            *firstName is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="lastName">lastName:</label>
+          <input type="text" id="lastName" formControlName="lastName" />
+          <div class="errorMsg" *ngIf="newF['lastName'].touched && newF['lastName'].hasError('required')">
+            *lastName is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="mobilePhone">Phone No:</label>
+          <input type="text" id="mobilePhone" formControlName="mobilePhone" />
+          <div class="errorMsg" *ngIf="newF['mobilePhone'].touched && newF['mobilePhone'].hasError('required')">
+            *mobilePhone is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" formControlName="email" />
+          <div class="errorMsg" *ngIf="newF['email'].touched && newF['email'].hasError('required')">
+            *Email is required.
+          </div>
+          <div class="errorMsg" *ngIf="newF['email'].touched && newF['email'].hasError('required')">
+            *Email is Invalid.
+          </div>
+        </div>
+      </div>
+  
+      <div class="right-grp">
+        <div class="form-group">
+          <label for="address" class="address">Address:</label>
+          <input type="text" id="address" formControlName="address" />
+          <div class="errorMsg" *ngIf="newF['address'].touched && newF['address'].hasError('required')">
+            *Address is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="city">City:</label>
+          <input type="text" id="city" formControlName="city" />
+          <div class="errorMsg" *ngIf="newF['city'].touched && newF['city'].hasError('required')">
+            *city is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="stateProvince">State:</label>
+          <input type="text" id="stateProvince" formControlName="stateProvince" />
+          <div class="errorMsg" *ngIf="newF['stateProvince'].touched && newF['stateProvince'].hasError('required')">
+            *stateProvince is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="zipPostalCode">zipPostalCode:</label>
+          <input type="text" id="zipPostalCode" formControlName="zipPostalCode" />
+          <div class="errorMsg" *ngIf="newF['zipPostalCode'].touched && newF['zipPostalCode'].hasError('required')">
+            *zipPostalCode is required.
+          </div>
+  
+          <div class="form-group">
+            <label for="countryRegion">Country:</label>
+            <input type="text" id="countryRegion" formControlName="countryRegion" />
+            <div class="errorMsg" *ngIf="newF['countryRegion'].touched && newF['countryRegion'].hasError('required')">
+              *Country is required.
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="!newProfileForm.valid">ADD</button>
+    </form>
+  </div>
