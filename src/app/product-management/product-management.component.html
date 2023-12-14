@@ -1,8 +1,47 @@
-<!-- <div *ngIf="product">
-  <img [src]="product.src" [alt]="product.alt">
-  <h2>{{ product.heading }}</h2>
-  <p>{{ product.description }}</p>
-  <button (click)="addToCart()">Add to Cart</button>
-  <button (click)="addToWishlist()">Add to Wishlist</button>
-  <button (click)="goBack()">Back</button>
-</div> -->
+<div class="customer-container">
+  <h2>Partner Management</h2>
+  <div class="add-btn">
+    <p>Add New Partner</p>
+    <button mat-icon-button color="primary" (click)="onAdd()">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="partners" class="mat-elevation-z8">
+
+    <!-- Define columns for the table -->
+    <ng-container matColumnDef="partnerId">
+      <th mat-header-cell *matHeaderCellDef>S.No</th>
+      <td mat-cell *matCellDef="let partner">{{ partner.partnerId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="partnerName">
+      <th mat-header-cell *matHeaderCellDef>partnerName</th>
+      <td mat-cell *matCellDef="let partner"><a href="/home/products">{{ partner.partnerName }}</a></td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>description</th>
+      <td mat-cell *matCellDef="let partner">{{ partner.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let customer">
+        <div class="btns">
+          <button mat-icon-button color="primary" (click)="onEdit(customer)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onDelete(customer)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+</div>

@@ -1,6 +1,5 @@
 <section class="products" *ngIf="categoryId == 0">
     <article class="product" *ngFor="let product of products">
-        <img [src]="product.src" [alt]="product.alt">
         <h2>{{ product.productName }}</h2>
         <p>{{ product.description }}</p>
         <b>Current Cost: $ {{ product.standardCost }}</b>
@@ -14,7 +13,6 @@
 
 <section class="products" *ngIf="categoryId == 1">
     <article class="product" *ngFor="let product of products">
-        <img [src]="product.src" [alt]="product.alt">
         <h2>{{ product.title }}</h2>
         <p>Released Year: {{ product.releaseYear }}</p>
         <p>{{ product.description }}</p>
@@ -29,7 +27,6 @@
 
 <section class="products" *ngIf="categoryId == 2">
     <article class="product" *ngFor="let product of products">
-        <img [src]="product.src" [alt]="product.alt">
         <h2>{{ product.productName }}</h2>
         <p>{{ product.quantityPerUnit }}</p>
         <b><i>Current Cost:</i> $ {{ product.standardCost }}</b>

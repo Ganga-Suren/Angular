@@ -1,0 +1,40 @@
+/* admin.component.css */
+.customer-container {
+    width: 100%;
+    margin: auto;
+}
+
+button {
+    margin: 0px 10px 0px 0px;
+}
+
+table {
+    width: auto;
+}
+
+.btns {
+    display: flex;
+}
+
+/* You can also use a class for styling if needed */
+.mat-cell,
+.mat-header-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.add-btn {
+    p{
+        text-decoration:solid;
+        font-size: 1rem;
+        margin-right: 1rem;
+        margin-top: 0.3rem;
+    }
+    button{
+        margin-bottom: 1.5rem;
+    }
+    display: flex;
+    margin-left: 79rem;
+    margin-top: -2rem;
+}

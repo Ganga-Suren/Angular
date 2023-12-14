@@ -26,6 +26,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CustomerEditDialogComponent } from './customer-edit-dialog/customer-edit-dialog.component';
 import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { PartnerEditDialogComponent } from './partner-edit-dialog/partner-edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/
     ProfileComponent,
     CustomerEditDialogComponent,
     DeleteConfirmationDialogComponent,
+    PartnerEditDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,

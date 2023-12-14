@@ -65,6 +65,23 @@ export class ApiService {
     return this.http.post<any>(url, data);
   }
   
+  // partner-relatedmethods
+  
+  getPartners(): Observable<any[]> {
+    const url = `${this.apiUrl}/Partners`;
+    return this.http.get<any[]>(url);
+  }
+
+  deletePartner(partnerId: number): Observable<any> {
+    const url = `${this.apiUrl}/Partners/${partnerId}`;
+    return this.http.delete<any>(url);
+  }
+
+  addPartner(data: any): Observable<any> {
+    const url = `${this.apiUrl}/Partners`;
+    return this.http.post<any>(url, data);
+  }
+  
  // Product-related methods
 
   getProducts(): Observable<any[]> {
@@ -99,12 +116,12 @@ export class ApiService {
   }
 
   deleteCartitem(id: any): Observable<any> {
-    const url = `${this.apiUrl}/Carts/deleteCartItem${id}`;
+    const url = `${this.apiUrl}/Carts/deleteCartItem/${id}`;
     return this.http.delete<any>(url);
   }
 
   emptyCart(id: any): Observable<any> {
-    const url = `${this.apiUrl}/Carts/deleteAllCartItems${id}`;
+    const url = `${this.apiUrl}/Carts/deleteAllCartItems/${id}`;
     return this.http.delete<any>(url);
   }
 
@@ -120,12 +137,12 @@ export class ApiService {
   }
 
   deleteWishlistItem(wishlistId: any): Observable<any> {
-    const url = `${this.apiUrl}/Wishlists/deleteWishItem${wishlistId}`;
+    const url = `${this.apiUrl}/Wishlists/deleteWishItem/${wishlistId}`;
     return this.http.delete<any>(url);
   }
 
   emptyWishlist(customerId: any): Observable<any> {
-    const url = `${this.apiUrl}/Wishlists/deleteAllWishItems${customerId}`;
+    const url = `${this.apiUrl}/Wishlists/deleteAllWishItems/${customerId}`;
     return this.http.delete<any>(url);
   }
 
