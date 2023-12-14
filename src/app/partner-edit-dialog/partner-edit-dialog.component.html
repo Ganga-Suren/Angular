@@ -1,0 +1,26 @@
+<!-- Editing a customer -->
+<div class="profile-container" *ngIf="data.isEditMode">
+    <h2>Edit Customner Details</h2>
+  
+    <form [formGroup]="profileForm" (ngSubmit)="saveChanges($event)">
+      <div class="left-grp">
+        <div class="form-group">
+          <label for="firstName">FirstName:</label>
+          <input type="text" id="firstName" formControlName="firstName" />
+          <div class="errorMsg" *ngIf="f['firstName'].touched && f['firstName'].hasError('required')">
+            *firstName is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="lastName">lastName:</label>
+          <input type="text" id="lastName" formControlName="lastName" />
+          <div class="errorMsg" *ngIf="f['lastName'].touched && f['lastName'].hasError('required')">
+            *lastName is required.
+          </div>
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="!profileForm.valid">Save Changes</button>
+    </form>
+  </div>

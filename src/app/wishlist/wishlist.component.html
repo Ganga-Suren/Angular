@@ -4,24 +4,26 @@
     <ul>
         <li class="cart-item" *ngFor="let item of wishlistItems">
             <div class="item-details">
-                {{ item.description }} - price: $ {{ item.price }}
+                Name: {{ item.productName }}<br>
+                Quantity: {{ item.quantity }}<br>
+                Price: $ {{ item.price }}
             </div>
             <div>
                 <button class="confirm-btn" (click)="addToCart(item)">Add to cart</button>
             </div>
             <div class="remove-btn-div">
-                <button (click)="removeFromWishlist(item.id)" class="remove-btn"><mat-icon>delete</mat-icon></button>
+                <button (click)="removeFromWishlist(item.wishlistId)" class="remove-btn"><mat-icon>delete</mat-icon></button>
             </div>
         </li>
     </ul>
 
 
-    <div class="cart-actions" *ngIf="wishlistItems.length != 0">
+    <div class="cart-actions" *ngIf="wishlistItems">
         <button class="clear-btn" (click)="clearWishlist()">Clear Wishlist</button>
     </div>
 
-    <div class="cart-actions" *ngIf="wishlistItems.length == 0">
-        <h3>Aww!! Your wishlist is EMPTY</h3>
+    <div class="cart-actions" *ngIf="!wishlistItems">
+        <h3>Ouch!! Your wishlist is EMPTY</h3>
         <p>You can add products <a href="/home/products">HERE</a></p>
     </div>
 

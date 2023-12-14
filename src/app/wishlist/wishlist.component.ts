@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,8 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.css'
 })
-export class WishlistComponent {
-  wishlistItems: any[] = [];
+export class WishlistComponent implements OnInit{
+  wishlistItems: any;
   shouldScroll: boolean = false;
   categoryId: any;
   customer: any;
@@ -20,13 +20,22 @@ export class WishlistComponent {
       this.categoryId = categoryId;
     });
     this.customer = this.service.getCurrentCustomer();
+    this.loadWishlistItems();
   }
   constructor(private router: Router, private service: ApiService, private snackBar: MatSnackBar) {
-    // this.wishlistItems = this.service.getWishlistItems();
-    this.wishlistItems = [];
   }
 
-  addToCart(product: any) {
+
+  loadWishlistItems(): void {
+    this.service.getWishListItems(this.customer.customerId).subscribe({
+      next: (data) => (this.wishlistItems = data),
+      error: (error) => (console.error('Error loading wishlist items:', error)),
+      complete: () => console.log(this.wishlistItems)
+    });
+  }
+
+
+  addToCart(product: any): void {
     let data;
     if(this.categoryId == 1) {
       data = { 
@@ -64,14 +73,11 @@ export class WishlistComponent {
 
 
   clearWishlist(): void {
-    // this.wishlistItems = [];
-    // this.service.emptyWishlist();
+    this.service.emptyWishlist(this.customer.customerId).subscribe();
   }
 
   removeFromWishlist(productId: number): void {
-    // let index = this.wishlistItems.findIndex(item => item.id = productId)
-    // this.wishlistItems.splice(index, 1)[0];
-    // this.showNotification('Product removed from wishlist successfully');
+    this.service.deleteWishlistItem(productId).subscribe();
   }
 
   private showNotification(message: string): void {

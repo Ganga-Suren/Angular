@@ -25,7 +25,7 @@ export class CartComponent implements OnInit {
     this.service.getCartItems(this.customer.customerId).subscribe({
       next: (data) => (this.cartItems = data),
       error: (error) => (console.error('Error loading cart items:', error)),
-      complete: () => console.log('Complete')
+      complete: () => console.log(this.cartItems)
     });
   }
 

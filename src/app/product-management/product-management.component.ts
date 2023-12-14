@@ -1,6 +1,8 @@
 // product-management.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '..//api.service';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-product-management',
@@ -8,80 +10,63 @@ import { ApiService } from '..//api.service';
   styleUrls: ['./product-management.component.css']
 })
 export class ProductManagementComponent implements OnInit {
-  products: any[] = [];
+  partners: any[] = [];
   newProduct: any = {};
   selectedProduct: any = {};
-  isAdding: boolean = false;
   isEditing: boolean = false;
-
-  constructor(private apiService: ApiService) { }
+  displayedColumns: string[] = ['partnerId', 'partnerName','description', 'actions'];
+  constructor(private router: Router, private apiService: ApiService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-   // this.loadProducts();
+    this.loadPartners();
   }
 
-  // loadProducts(): void {
-  //   this.apiService.getProducts().subscribe(
-  //     (data) => {
-  //       this.products = data;
-  //     },
-  //     (error) => {
-  //       console.error('Error loading products:', error);
+  loadPartners(): void {
+    this.apiService.getPartners().subscribe({
+      next: (data) => (this.partners = data),
+      error: (error) => (console.error('Error loading Partners:', error)),
+      complete: () => console.log('Complete')
+    });
+  }
+
+  onAdd(): void {
+    this.isEditing = false;
+    //this.openEditDialog("", this.isEditing)
+  }
+  
+  onEdit(customer: any): void {
+    this.isEditing = true;
+   // this.openEditDialog(customer, this.isEditing);
+  }
+
+  onDelete(partner: any) {
+    this.apiService.deletePartner(partner.partnerId).subscribe();
+  }
+
+  // openEditDialog(customer: any, isEditMode: boolean): void {
+  //   const dialogRef = this.dialog.open(CustomerEditDialogComponent, {
+  //     width: '826px',
+  //     data: { customer, isEditMode }
+  //   });
+  
+  //   dialogRef.afterClosed().subscribe((result: any) => {
+  //     if (result) {
+  //       console.log(result);
   //     }
-  //   );
+  //   });
   // }
 
-  // addProduct(): void {
-  //   this.apiService.addProduct(this.newProduct).subscribe(
-  //     () => {
-  //       this.loadProducts();
-  //       this.resetForm();
-  //     },
-  //     (error) => {
-  //       console.error('Error adding product:', error);
+  // openDeleteConfirmationDialog(customer: any): void {
+  //   const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+  //     width: '400px',
+  //     height: '200px',
+  //     data: { customer }
+  //   });
+  
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       this.apiService.deleteCustomer(customer.customerId).subscribe();
   //     }
-  //   );
-  // }
-
-  // removeProduct(productId: number): void {
-  //   this.apiService.removeProduct(productId).subscribe(
-  //     () => {
-  //       this.loadProducts();
-  //     },
-  //     (error) => {
-  //       console.error('Error removing product:', error);
-  //     }
-  //   );
-  // }
-
-  // editProduct(productId: number): void {
-  //   this.apiService.getProductById(productId).subscribe(
-  //     (product) => {
-  //       this.selectedProduct = { ...product };
-  //       this.isEditing = true;
-  //     },
-  //     (error) => {
-  //       console.error('Error loading product details for editing:', error);
-  //     }
-  //   );
-  // }
-
-  // updateProduct(): void {
-  //   this.apiService.updateProduct(this.selectedProduct).subscribe(
-  //     () => {
-  //       this.loadProducts();
-  //       this.resetForm();
-  //     },
-  //     (error) => {
-  //       console.error('Error updating product:', error);
-  //     }
-  //   );
-  // }
-
-  // resetForm(): void {
-  //   this.newProduct = {};
-  //   this.selectedProduct = {};
-  //   this.isAdding = false;
-  //   this.isEditing = false;
+  //   });
   // }
 }

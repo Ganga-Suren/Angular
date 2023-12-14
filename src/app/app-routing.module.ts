@@ -9,6 +9,7 @@ import { PaymentPageComponent } from './payment-page/payment-page.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
+import { ProductManagementComponent } from './product-management/product-management.component';
 
 const routes: Routes = [
   {
@@ -31,10 +32,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'customers', pathMatch: 'full' },
       { path: 'customers', component: CustomerManagementComponent },
-      // { path: 'orders', component: OrdersComponent },
-      // { path: 'partners', component: PartnersComponent },
-      // { path: 'info', component: InfoComponent },
-      // { path: '', redirectTo: 'customers', pathMatch: 'full' }
+      { path: 'partners', component: ProductManagementComponent},
     ]
   }
 ];
